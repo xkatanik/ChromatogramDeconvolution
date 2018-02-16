@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: mzmine:visad:20131024">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/mzmine/visad/20131024/visad-20131024.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/mzmine/visad/20131024/visad-20131024-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/mzmine/visad/20131024/visad-20131024-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
