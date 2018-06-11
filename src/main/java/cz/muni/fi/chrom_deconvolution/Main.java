@@ -53,11 +53,14 @@ public class Main {
         Boolean abs = true;
 
         Options options = setOptions();
+        String header = "";
+        String footer = "Created by Kristian Katanik, version 1.1.";
 
         if (args.length == 0) {
             HelpFormatter helpFormatter = new HelpFormatter();
             helpFormatter.setOptionComparator(null);
-            helpFormatter.printHelp("Chromatogram deconvolution module help.", options);
+            helpFormatter.printHelp("Chromatogram deconvolution module help.", header, options, footer, true);
+            System.exit(1);
             return;
         }
 
@@ -69,11 +72,13 @@ public class Main {
                 if (arg.equals("-h") || arg.equals("--help")) {
                     HelpFormatter helpFormatter = new HelpFormatter();
                     helpFormatter.setOptionComparator(null);
-                    helpFormatter.printHelp("Chromatogram deconvolution module help.", options);
+                    helpFormatter.printHelp("Chromatogram deconvolution module help.", header, options, footer, true);
+                    System.exit(1);
                     return;
                 }
             }
             System.err.println("Some of the required parameters or their arguments are missing. Use -h or --help for help.");
+            System.exit(1);
             return;
         }
 
@@ -86,6 +91,7 @@ public class Main {
                 SNThreshold = Double.parseDouble(commandLine.getOptionValue("snt"));
             } catch (NumberFormatException e) {
                 System.err.println("Wrong format of SNThreshold value. Value has to be number in double format.");
+                System.exit(1);
                 return;
             }
         }
@@ -94,6 +100,7 @@ public class Main {
                 minFeatureHeight = Double.parseDouble(commandLine.getOptionValue("mfh"));
             } catch (NumberFormatException e) {
                 System.err.println("Wrong format of minFeatureHeight value. Value has to be number in double format.");
+                System.exit(1);
                 return;
             }
         }
@@ -102,12 +109,14 @@ public class Main {
                 areaThreshold = Double.parseDouble(commandLine.getOptionValue("at"));
             } catch (NumberFormatException e) {
                 System.err.println("Wrong format of areaThreshold value. Value has to be number in double format.");
+                System.exit(1);
                 return;
             }
         }
         if (commandLine.hasOption("pdr")) {
             if (commandLine.getOptionValues("pdr").length != 2) {
                 System.err.println("Peak duration range has to have exactly 2 arguments.");
+                System.exit(1);
                 return;
             }
             try {
@@ -115,11 +124,14 @@ public class Main {
                 peakDurationRange2 = Double.parseDouble(commandLine.getOptionValues("pdr")[1]);
             } catch (NumberFormatException e) {
                 System.err.println("Wrong format of peakDurationRange value(s). Value has to be number in double format.");
+                System.exit(1);
+                return;
             }
         }
         if (commandLine.hasOption("rtr")) {
             if (commandLine.getOptionValues("rtr").length != 2) {
                 System.err.println("RT range has to have exactly 2 arguments.");
+                System.exit(1);
                 return;
             }
             try {
@@ -127,6 +139,8 @@ public class Main {
                 RTRange2 = Double.parseDouble(commandLine.getOptionValues("rtr")[1]);
             } catch (NumberFormatException e) {
                 System.err.println("Wrong format of RTRange value(s). Value has to be number in double format.");
+                System.exit(1);
+                return;
             }
         }
         if (commandLine.hasOption("w")) {
@@ -136,6 +150,7 @@ public class Main {
                     peakWidth = Double.parseDouble(commandLine.getOptionValue("pw"));
                 } catch (NumberFormatException e) {
                     System.err.println("Wrong format of peakWidth value. Value has to be number in double format.");
+                    System.exit(1);
                     return;
                 }
             }
@@ -147,6 +162,7 @@ public class Main {
             inputFile = new File(inputFileName);
         } catch (Exception e) {
             System.out.println("Unable to load input file.");
+            System.exit(1);
             return;
         }
 
@@ -155,6 +171,7 @@ public class Main {
             rawInputFile = new File(rawData);
         } catch (Exception e) {
             System.out.println("Unable to load raw file.");
+            System.exit(1);
             return;
         }
 
@@ -163,11 +180,13 @@ public class Main {
             outputFile = new File(outputFileName);
         } catch (Exception e) {
             System.out.println("Unable to create/load output file.");
+            System.exit(1);
             return;
         }
 
         if (!inputFile.exists() || inputFile.isDirectory() || !rawInputFile.exists() || rawInputFile.isDirectory()) {
             System.err.println("Unable to load input/raw file.");
+            System.exit(1);
             return;
         }
 
@@ -179,6 +198,7 @@ public class Main {
             rawDataFile2 = new RawDataFileImpl(rawInputFile.getName());
         } catch (IOException e) {
             System.err.println("Unable to open raw data file.");
+            System.exit(1);
             return;
         }
 
